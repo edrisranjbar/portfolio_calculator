@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Calculator</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <p class="pf-title">Investment tracker</p>
+    <p class="pf-subtitle">Portfolio calculator</p>
+
+    <div class="pf-inputs">
+      <div class="pf-field">
+        <label>Monthly</label>
+        <input type="number" id="monthly" value="500" min="0" step="50" />
+        <div class="pf-unit">$ per month</div>
+      </div>
+      <div class="pf-field">
+        <label>Annual return</label>
+        <input type="number" id="rate" value="7" min="0" max="50" step="0.1" />
+        <div class="pf-unit">% per year</div>
+      </div>
+      <div class="pf-field">
+        <label>Period</label>
+        <input type="number" id="months" value="120" min="1" max="600" step="12" />
+        <div class="pf-unit" id="months-label">months (10 yrs)</div>
+      </div>
+      <div class="pf-field">
+        <label>Initial deposit</label>
+        <input type="number" id="initial" value="1000" min="0" step="500" />
+        <div class="pf-unit">one-time $</div>
+      </div>
+    </div>
+
+    <div class="pf-metrics" id="metrics"></div>
+
+    <div id="save-indicator" class="save-indicator"></div>
+
+    <div class="pf-tabs">
+      <button class="pf-tab active" onclick="switchView('growth', this)">Growth curve</button>
+      <button class="pf-tab" onclick="switchView('breakdown', this)">Breakdown</button>
+    </div>
+
+    <div id="view-growth">
+      <div class="pf-chart-wrap">
+        <div class="pf-chart-header">
+          <span class="pf-chart-title">Portfolio value over time</span>
+          <div class="pf-legend">
+            <span><span class="pf-legend-dot" style="background:#1D9E75"></span>Total value</span>
+            <span><span class="pf-legend-dot" style="background:#378ADD"></span>Contributions</span>
+          </div>
+        </div>
+        <div style="position:relative;width:100%;height:260px">
+          <canvas id="growthChart" role="img" aria-label="Line chart of portfolio value vs contributions over time">Portfolio growth</canvas>
+        </div>
+      </div>
+
+      <div class="pf-table-wrap">
+        <table class="pf-table">
+          <thead>
+            <tr>
+              <th style="width:12%">Year</th>
+              <th style="width:22%">Contributed</th>
+              <th style="width:22%">Interest</th>
+              <th style="width:22%">Total</th>
+              <th style="width:22%">Gain</th>
+            </tr>
+          </thead>
+          <tbody id="yearlyTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="view-breakdown" style="display:none">
+      <div class="pf-chart-wrap">
+        <div class="pf-chart-header">
+          <span class="pf-chart-title">Final portfolio composition</span>
+          <div class="pf-legend">
+            <span><span class="pf-legend-dot" style="background:#378ADD"></span>Principal</span>
+            <span><span class="pf-legend-dot" style="background:#1D9E75"></span>Interest</span>
+          </div>
+        </div>
+        <div class="donut-row">
+          <div class="donut-canvas-wrap">
+            <canvas id="donutChart" role="img" aria-label="Donut chart: principal vs interest earned">Donut chart</canvas>
+          </div>
+          <div id="donut-stats" class="donut-stats"></div>
+        </div>
+      </div>
+
+      <div class="pf-chart-wrap">
+        <div class="pf-chart-header">
+          <span class="pf-chart-title">Monthly interest earned over time</span>
+        </div>
+        <div style="position:relative;width:100%;height:220px">
+          <canvas id="interestChart" role="img" aria-label="Bar chart of average monthly interest earned per period">Monthly interest</canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
